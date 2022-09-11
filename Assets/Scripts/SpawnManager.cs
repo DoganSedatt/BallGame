@@ -8,8 +8,8 @@ public class SpawnManager : MonoBehaviour
     private float spawnRange = 9;//Aralýk
     void Start()
     {
-        Instantiate(enemy, RandomSpawnPos(), enemy.transform.rotation);
-        //Düþman objesini, RandomSpawnPos metodundan gelen kordinatlarda üret. 
+        SpawnEnemy();
+        
     }
     private Vector3 RandomSpawnPos()
     {
@@ -17,5 +17,13 @@ public class SpawnManager : MonoBehaviour
         float spawnZ = Random.Range(-spawnRange, spawnRange);//-9 ile 9 arasýnda Z kordinat deðeri
         Vector3 randomPos = new Vector3(spawnX, 0, spawnZ);//Oluþacak olan bu rastgele pozisyon deðerini Vector3 deðiþkeninde tuttuk.
         return randomPos;//Ve onu kullanabilmek için return ettik. Instantiate metodunun içinde çaðýrdýk
+    }
+    void SpawnEnemy()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            Instantiate(enemy, RandomSpawnPos(), enemy.transform.rotation);
+            //Düþman objesini, RandomSpawnPos metodundan gelen kordinatlarda üret. 
+        }
     }
 }
