@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody enemyRb;
     public float speed;
     private GameObject player;
+    private float enemyDeathPosition = -5f;//Düþmanýn düþtükten sonra yok olacaðý konum deðeri
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
@@ -18,6 +19,12 @@ public class Enemy : MonoBehaviour
     {
         Vector3 lookDirection = (player.transform.position - transform.position).normalized;//Player ile aradaki mesafeyi buluyor
         //Normalized,nesnenin hýzýný korumak için ekleniyor.Aksi takdirde iki yönlü harekette(x,y gibi) olmasý gerekenden daha hýzlý hareket edecekti.
-        enemyRb.AddForce(lookDirection*speed);
+        enemyRb.AddForce(lookDirection*speed);//Düþmana kuvvet ekle(x,y,z sine kuvvet ekliyor. O deðerleri de player ile arasýndaki mesafeden alýyor*speed)
+
+        if (transform.position.y < enemyDeathPosition)
+        {//Eðer düþmanýn konumu ölüm posizyon deðerinden küçükse(Platformdan aþaðýya düþmüþse);
+
+            Destroy(this.gameObject);//Bu objeyi yok et
+        }
     }
 }
